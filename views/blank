@@ -1,0 +1,18 @@
+<!-- <ul id='doctor_dynamic_list'>
+  <% @doctors.each() do |doctor| %>
+    <li>Doctor <a href="/doctor/<%= doctor.id()%>"><%= doctor.name() %></a></li>
+  <% end %>
+</ul> -->
+
+<!-- <% if @patients.any?() %>
+  <ul id='patient_dynamic_list'>
+    <% @patients.each() do |patient| %>
+      <li><a href="/patient/<%= patient.id()%>"><%= patient.name() %></a> </li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+  <p>There are no patients yet!</p>
+
+<% end %> -->

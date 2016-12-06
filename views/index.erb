@@ -2,28 +2,13 @@
 <div class="row" id='row1'>
   <div class="col-md-4" id='row1col1'>
     <h2>List of current patients</h2>
-    <% if @patients.any?() %>
-      <ul id='patient_dynamic_list'>
-        <% @patients.each() do |patient| %>
-          <li><a href="/patient/<%= patient.id()%>"><%= patient.name() %></a> </li>
-        <% end %>
-      </ul>
-
-    <% else %>
-
-      <p>There are no patients yet!</p>
-
-    <% end %>
+  
   </div> <!--end row1col1-->
   <div class="col-md-8" id='row1col2'>
     <div class="row" id='row1col2row1'>
       <div class="col-md-12" id='row1col2row1col1'>
         <h2>Here are the current doctors!</h2>
-          <ul id='doctor_dynamic_list'>
-            <% @doctors.each() do |doctor| %>
-              <li>Doctor <a href="/doctor/<%= doctor.id()%>"><%= doctor.name() %></a></li>
-            <% end %>
-          </ul>
+
       </div><!--end row1col2row1col1-->
     </div><!--end row1col2row1-->
     <div class="row" id='row1col2row2'>
