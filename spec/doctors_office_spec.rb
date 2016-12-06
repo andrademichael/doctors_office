@@ -39,4 +39,10 @@ describe(Specialty) do
       expect(test_specialty.id()).to(eq(nil))
     end
   end
+  describe("#add_doctor") do
+    it('will add a doctor into the doctor_ids array of the Specilaty ') do
+      test_specialty.add_doctor(test_doctor)
+      expect(test_specialty.doctor_ids()).to(eq([test_doctor]))
+    end
+  end
 end
