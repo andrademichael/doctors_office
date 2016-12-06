@@ -3,7 +3,7 @@ class Doctor
 
   define_method(:initialize) do |attributes|
         @name = attributes.fetch(:name)
-        @id = attributes.fetch(:id)
+        @id = attributes[:id]
         @patient_ids = []
   end
 
@@ -20,5 +20,9 @@ class Doctor
     end
     doctors
   end
+
+  # define_method(:save) do
+  #   DB.exec("INSERT INTO doctors (name, patient_ids) VALUES ('#{@name}', #{@patient_ids});")
+  # end
 
 end

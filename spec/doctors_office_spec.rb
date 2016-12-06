@@ -7,14 +7,16 @@ require('pg')
 DB = PG.connect({:dbname => 'doctors_office_test'})
 
 RSpec.configure do |config|
-  config.after(:each) do
-    DB.exec("DELETE FROM doctors;")
+  config.before(:each) do
+    DB.exec("DELETE FROM doctors *;")
+    DB.exec("DELETE FROM patients *;")
+    DB.exec("DELETE FROM specialties *;")
   end
 end
 
-test_patient = Patient.new({:name => "Tom", :birthdate => "1899-05-12", :id=> nil})
-test_doctor = Doctor.new({:name => "Tim", :id => nil})
-test_specialty = Specialty.new({:name => "Backrubiatry", :id => nil})
+test_patient = Patient.new({:name => "Tom", :birthdate => "1899-05-12"})
+test_doctor = Doctor.new({:name => "Tim"})
+test_specialty = Specialty.new({:name => "Backrubiatry"})
 
 describe(Doctor) do
   describe('#initialize') do
@@ -36,11 +38,12 @@ describe(Doctor) do
     end
   end
 
-  # describe("#save") do
-  #   it('will save the doctor to the database')do
-  #
-  #   end
-  # end
+#   describe("#save") do
+#     it('will save the doctor to the database')do
+#     test_doctor.save()
+#     expect(Doctor.all()).to(eq([test_doctor]))
+#     end
+#   end
 end
 
 describe(Patient) do
@@ -51,7 +54,28 @@ describe(Patient) do
       expect(test_patient.id()).to(eq(nil))
     end
   end
+
+  describe(".all") do
+    it('will return an empty array at first') do
+      expect(Patient.all()).to(eq([]))
+    end
+  end
+
+  describe("#save") do
+    it('will save the patient to the database')do
+    test_patient.save()
+    expect(Patient.all()).to(eq([test_patient]))
+    end
+  end
+
+  describe("#==") do
+    it('returns whether two patients objects share the same name and birthdate') do
+    test_patient2 = Patient.new({:name => "Tom", :birthdate => "1899-05-12"})
+    expect(test_patient).to(eq(test_patient2))
+    end
+  end
 end
+
 
 describe(Specialty) do
   describe('#initialize') do
@@ -60,6 +84,7 @@ describe(Specialty) do
       expect(test_specialty.id()).to(eq(nil))
     end
   end
+
   describe("#add_doctor") do
     it('will add a doctor into the doctor_ids array of the Specilaty ') do
       test_specialty.add_doctor(test_doctor)
