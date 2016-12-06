@@ -20,3 +20,13 @@ describe("the add doctor path", {:type => :feature}) do
     expect(page).to have_content("Your information has been added!")
   end
 end
+
+describe("the add patient path", {:type => :feature}) do
+  it('takes user input for patient name and birthdate')do
+    visit('/add_patient')
+    fill_in('patient_name_input', :with => "Tom")
+    fill_in('patient_birthdate_input', :with => "1898-05-12")
+    click_button('Add the Patient!')
+    expect(page).to have_content("Your information has been added!")
+  end
+end
