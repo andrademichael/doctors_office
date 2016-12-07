@@ -54,3 +54,28 @@ describe("the index page from a success page", {:type => :feature}) do
     expect(page).to have_content("Jekyll")
   end
 end
+
+  describe("dynamic view page for each listed doctor", {:type => :feature}) do
+     it("will display the name of the selected doctor, specialty, and display their patients(if any)") do
+       visit('/add_doctor')
+       fill_in('doctor_name_input', :with => "Jekyll")
+       fill_in('doctor_specialty_input', :with => "Mixology")
+       click_on('Add the Doc!')
+       visit('/add_doctor')
+       fill_in('doctor_name_input', :with => "Phil")
+       fill_in('doctor_specialty_input', :with => "Bullshitting")
+       click_on('Add the Doc!')
+       visit('/add_patient')
+       fill_in('patient_name_input', :with => "Mr. Hyde")
+       fill_in('patient_birthdate_input', :with => "1902-01-12")
+       click_on('Add the Patient!')
+       visit('/add_patient')
+       fill_in('patient_name_input', :with => "Mr. Andrade")
+       fill_in('patient_birthdate_input', :with => "1985-04-13")
+       click_on('Add the Patient!')
+       click_on('Home')
+       click_on('Doctor Jekyll')
+       expect(page).to have_content('Mixology')
+     end
+
+    end

@@ -37,3 +37,8 @@ post("/patient_success") do
   patient.save()
   erb(:success)
 end
+
+get("doctor/view/:id") do
+  @doctor = Doctor.find(params.fetch("id").to_i())
+  erb(:doctor_view)
+end
