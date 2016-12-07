@@ -1,4 +1,5 @@
 require('capybara/rspec')
+require('capybara')
 require('./app')
 Capybara.app = Sinatra::Application
 set(:show_exceptions, false)
@@ -31,19 +32,25 @@ describe("the add patient path", {:type => :feature}) do
   end
 end
 
-# describe("the index page from a success page") do
-#   it("populates lists with all patients and doctors added") do
-#     # new_doctor1 = Doctor.new({:name => "Phil", :specialty_id => "Philibustering"})
-#     # new_doctor2 = Doctor.new({:name => "Jekyll", :specialty_id => "Mad Science"})
-#     # new_doctor1.save()
-#     # new_doctor2.save()
-#     # puts Doctor.all()
-#     # new_patient1 = Patient.new({:name => "Mr. Hyde", :birthdate => "1822-02-22", :doctor_id => DB.exec("SELECT id FROM doctors WHERE name = 'Jekyll';")})
-#     # new_patient2 = Patient.new({:name => "Michael", :birthdate => "1985-04-13", :doctor_id => DB.exec("SELECT id FROM doctors WHERE name = 'Jekyll';")})
-#     # visit("/")
-#     # new_patient2.save()
-#     # new_patient1.save()
-#     puts Patient.all()
-#     expect(page).to have_content("Jekyll", "Hyde")
-#   end
-# end
+describe("the index page from a success page", {:type => :feature}) do
+  it("populates lists with all patients and doctors added") do
+    visit('/add_doctor')
+    fill_in('doctor_name_input', :with => "Jekyll")
+    fill_in('doctor_specialty_input', :with => "Mixology")
+    click_on('Add the Doc!')
+    visit('/add_doctor')
+    fill_in('doctor_name_input', :with => "Phil")
+    fill_in('doctor_specialty_input', :with => "Bullshitting")
+    click_on('Add the Doc!')
+    visit('/add_patient')
+    fill_in('patient_name_input', :with => "Mr. Hyde")
+    fill_in('patient_birthdate_input', :with => "1902-01-12")
+    click_on('Add the Patient!')
+    visit('/add_patient')
+    fill_in('patient_name_input', :with => "Mr. Andrade")
+    fill_in('patient_birthdate_input', :with => "1985-04-13")
+    click_on('Add the Patient!')
+    click_on('Home')
+    expect(page).to have_content("Jekyll")
+  end
+end

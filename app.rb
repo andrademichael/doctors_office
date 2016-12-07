@@ -5,6 +5,7 @@ require('pg')
 require('./lib/doctor.rb')
 require('./lib/specialty.rb')
 require('./lib/patient.rb')
+require('capybara')
 also_reload('lib/**/*.rb')
 
 get("/") do
