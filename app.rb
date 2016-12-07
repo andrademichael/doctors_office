@@ -8,6 +8,8 @@ require('./lib/patient.rb')
 also_reload('lib/**/*.rb')
 
 get("/") do
+  @doctors = Doctor.all()
+  @patients = Patient.all()
   erb(:index)
 end
 
